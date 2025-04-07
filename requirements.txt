@@ -1,4 +1,4 @@
 flask==2.3.3
-together-python==0.1.5
+together==1.4.6
 gunicorn==21.2.0
 python-dotenv==1.0.0
