@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPG Character Helper</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="main-container">
+        <h1 class="site-title">RPG Character Helper</h1>
+        
+        <div class="content">
+            <form action="/generate" method="post" class="character-form">
+                <div class="selection-row">
+                    <div class="dropdown-container">
+                        <select name="class" id="class">
+                            <option value="" disabled selected>Class</option>
+                            {% for class in classes %}
+                            <option value="{{ class }}">{{ class }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="dropdown-container">
+                        <select name="background" id="background">
+                            <option value="" disabled selected>Background</option>
+                            {% for background in backgrounds %}
+                            <option value="{{ background }}">{{ background }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="dropdown-container">
+                        <select name="species" id="species">
+                            <option value="" disabled selected>Species</option>
+                            {% for species_item in species %}
+                            <option value="{{ species_item }}">{{ species_item }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="dropdown-container">
+                        <select name="alignment" id="alignment">
+                            <option value="" disabled selected>Alignment</option>
+                            {% for alignment in alignments %}
+                            <option value="{{ alignment }}">{{ alignment }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="details-row">
+                    <input type="text" name="details" id="details" placeholder="Character Details" class="details-input">
+                    <button type="submit" class="generate-button">Generate</button>
+                </div>
+                <!-- Text area removed as results display on another page -->
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Simple JavaScript to provide interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // This would be expanded in a real application
+            console.log("RPG Character Helper loaded");
+        });
+    </script>
+</body>
+</html>

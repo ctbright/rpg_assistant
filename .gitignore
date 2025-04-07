@@ -1,0 +1,37 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+ENV/
+.env/
+
+# Flask instance folder
+instance/
+.webassets-cache
+
+# Development/IDE files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs
+*.log
+
+# OS specific files
+.DS_Store
+Thumbs.db
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
