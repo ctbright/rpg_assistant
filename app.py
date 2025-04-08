@@ -50,6 +50,17 @@ def ask_llama(prompt):
     except Exception as e:
         return f"Error: {str(e)}"
 
+def ask_image(prompt):
+    client = Together()
+    response = client.images.generate(
+        prompt=prompt,
+        model="stabilityai/stable-diffusion-xl-base-1.0",
+        steps=10,
+        n=4
+    )
+    return (response.data[0].url)
+
+
 def generate_character_description(char_class, background, species_choice, alignment, details=""):
     """
     Generate a more detailed character description based on the provided parameters.
@@ -67,6 +78,9 @@ def generate_character_description(char_class, background, species_choice, align
     # Class-specific traits
     return ask_llama("Give me a quick paragraph with possible details of a " + char_class + " with an " + background + " who is a " + species_choice +  " with alignment " + alignment + ". Details include " + details + "don't add anything else to the paragraph like 'here is a possible paragraph'")
 
+def generate_character_image(char_class, background, species_choice, alignment, details=""):
+    return ask_image("Give me a image of a D&D " + char_class + " with an " + background + " who is a " + species_choice +  " with alignment " + alignment + ". Details could include " + details)
+
 @app.route('/generate', methods=['POST'])
 def generate_character():
     # Get form data
@@ -82,8 +96,9 @@ def generate_character():
     )
     
     # Get image URL from environment variable
-    character_image_url = "https://api.together.ai/imgproxy/ap7-cwvokiI54cBvfJz5uLaKFNZ8CJW9ACwCfuD6hkI/format:jpeg/aHR0cHM6Ly90b2dldGhlci1haS1iZmwtaW1hZ2VzLXByb2QuczMudXMtd2VzdC0yLmFtYXpvbmF3cy5jb20vaW1hZ2VzLzEwNzQzZDBlMGNmM2M3YTY0OGE3MTM1NDdmYTVhZTc1ZWU5OGY0ZTMyNjJmN2ZjYzlmYmJjN2U5YTI3ODEwODY_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ29udGVudC1TaGEyNTY9VU5TSUdORUQtUEFZTE9BRCZYLUFtei1DcmVkZW50aWFsPUFTSUFZV1pXNEhWQ1AyQ0MzUUdCJTJGMjAyNTA0MDglMkZ1cy13ZXN0LTIlMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjUwNDA4VDE0MjczNlomWC1BbXotRXhwaXJlcz0zNjAwJlgtQW16LVNlY3VyaXR5LVRva2VuPUlRb0piM0pwWjJsdVgyVmpFUCUyRiUyRiUyRiUyRiUyRiUyRiUyRiUyRiUyRiUyRiUyRndFYUNYVnpMWGRsYzNRdE1pSklNRVlDSVFDNnQ1NUt2eWU2JTJGJTJGZ0hBNGFqV1VxTTlic21PSlhidkkwbjBXd0Z4QlFoT1FJaEFKYnJNJTJCN2V3UGg2NzdKJTJCemdoTFFrdnBvZWRvOSUyQkRzMnNPTE5EenF4aXVZS3BBRkNIZ1FBQm9NTlRrNE56STJNVFl6Tnpnd0lnd3B5UkwwMDJCc2s1clNpSWNxN1FUUDRVYkhnMWlNZFFVT1MlMkJkU2tKT215MHJwMzZ6aUh3NXptMlJGUzFnSGhMcnRPMUc3WThGdnJOUnpzNEElMkZXS0h6aWtUbHNUd0k5R2tDSkhKM2d0YTMwUkZnViUyQnZtc011eG8xZllsUVZGRWdwZEN2REpEcGRndDE4NWxWa3c4V1dmeFJYbzRRb0x5ejB4WERPTTElMkJUc3ZjOTJ1MkFySE1FaTlyclFXRDVBN0Y1VDF5OHhLV09IeGMyVnFTUE1zMXJJN2UyMyUyQmJ5YW9QeUsybnU3RkFTczBpMXZHSWxIYVlVSVdHbndWdXVMbWxWUEJJdzJzRnRjQ09QSG55dU1pWFdiSGpZWHBFQlJEWFNNJTJGd0tycHo0VmhuaFo2TUg0YnRDQmpmYjdCYlZ6WCUyRlNQTDlJcSUyRnFrVCUyRm9ENk1BTU5KblR3TnFCMXVJSUREWWJGc2Y3dyUyRkFORTMySVdFaWh1YmQ0dElGbUhpQWNtbDc3NWsyemhyQTNZU01VNDY0NExsVldOT3QyTFdUYzRlciUyQkhucHZlaHY3ZGtWMmhsdlhsZm15UlZpVUFmbkNJR3V0TkwyckNCWGpERlczOGhQMjJqU2hRWWp3cnN0NldjanBIWVllNkV6MGp2dlRBdWRYODZ0MjF1M3loc0JKZDRFTVNyVyUyRjdQVkNFUjF1dG9KODUlMkJYQ2hkaTAlMkZQUGEyamRGYkhIVHNSR0tQWFVzRHlDTzE4cDRYTExJSzhHRjQlMkJCeFBlMjRnWnk1U2hldE5IMHBwd2FRUzRQYXo1ejVPRU0lMkY2MlhRTWFUdHVzJTJCZGdqakJFN2dta1Z4SjUzUm5JekhrZGpwSGpRWEkzdDBnWkMwTkI1MDhlWSUyRmpoT0olMkJuMU56eERMNzBYY1NHT0lYM2lYWmNwV0dTbzJtQWNQNzYxQzV1YmlvSGhMaUVMMmV2YlZCcyUyQmdxWHV6WlVWYWkySTJoUTlLVG5uQ0RZVFg4WHhlYWxPZHlKSERvMjBwV0gxQUVENTZXYXdUMFhPdlNFeHdHajBqckhpbmpyRjlQJTJCZTExVVRoRGRUMDdkTUs4azN5ZTNjb3p5VzlDNmluNGpxNVJUVXV1S2kwJTJCM3BiMXpOTjB3Mk9UVXZ3WTZtZ0V5QTBvVkpLbGdXZWJneldxWSUyQjg2am53ZjFjOG9ENzloaFNaR0M0a3ZqUkd3ekZVdzFQclQlMkI5T0xXUmJDQnNuT2klMkJZVjg2SlJUOWlpcVZIYU81RUdENTVIeWpvc09Pa2psNFA2cUdhTzBHOUF3YXJrbENzQmRMNzdnS0ZUTHpxOTZYMXo0YjZNTFlYZkdLNk1zSkNtSzk3ekElMkJIQUVXWWhtenp0UkslMkZzUlUxNk9VV2pwdng2WDF0MTZYVERUaENCZ3dPRVQ2aVhTcUJ6dCZYLUFtei1TaWduYXR1cmU9ZDIxMzY3ODY4YjUwZmU4NWNjZWIzNDcxZDkxZTliMzI3ZjhjNTAzMDVhZWQ2YTM0NDgyOTJlM2JkYmFlNDBjNCZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmeC1pZD1HZXRPYmplY3Q"
-    
+    character_image_url = generate_character_image(
+        char_class, background, species_choice, alignment, details
+    )
     # Create character dictionary
     character = {
         'system': "Generic Fantasy RPG",
