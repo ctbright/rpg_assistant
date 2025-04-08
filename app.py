@@ -52,13 +52,16 @@ def ask_llama(prompt):
 
 def ask_image(prompt):
     client = Together(api_key=api_key)
-    response = client.images.generate(
-        prompt=prompt,
-        model="stabilityai/stable-diffusion-xl-base-1.0",
-        steps=10,
-        n=4
-    )
-    return (response.data[0].url)
+    try:
+        response = client.images.generate(
+            prompt=prompt,
+            model="stabilityai/stable-diffusion-xl-base-1.0",
+            steps=10,
+            n=4
+        )
+        return (response.data[0].url)
+    except Exception as e:
+        return f"Error: {str(e)}"
 
 
 def generate_character_description(char_class, background, species_choice, alignment, details=""):
