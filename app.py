@@ -65,7 +65,7 @@ def generate_character_description(char_class, background, species_choice, align
         str: A detailed character description
     """
     # Class-specific traits
-    return ask_llama("Give me a quick paragraph with possible details of a " + char_class + " with an " + background + " who is a " + species_choice +  " with alignment " + alignment + ". Details include " + details)
+    return ask_llama("Give me a quick paragraph with possible details of a " + char_class + " with an " + background + " who is a " + species_choice +  " with alignment " + alignment + ". Details include " + details + "don't add anything else to the paragraph like 'here is a possible paragraph'")
 
 @app.route('/generate', methods=['POST'])
 def generate_character():
