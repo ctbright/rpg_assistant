@@ -51,7 +51,7 @@ def ask_llama(prompt):
         return f"Error: {str(e)}"
 
 def ask_image(prompt):
-    client = Together()
+    client = Together(api_key=api_key)
     response = client.images.generate(
         prompt=prompt,
         model="stabilityai/stable-diffusion-xl-base-1.0",
