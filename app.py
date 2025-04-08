@@ -23,8 +23,9 @@ def rpg_creator():
                           species=species,
                           alignments=alignments)
 
+api_key = os.environ.get("API_KEY")
 
-def ask_llama(prompt, api_key):
+def ask_llama(prompt):
     """
     Send a prompt to Llama 3 and return the response.
     
@@ -49,7 +50,6 @@ def ask_llama(prompt, api_key):
     except Exception as e:
         return f"Error: {str(e)}"
 
-
 def generate_character_description(char_class, background, species_choice, alignment, details=""):
     """
     Generate a more detailed character description based on the provided parameters.
@@ -65,7 +65,7 @@ def generate_character_description(char_class, background, species_choice, align
         str: A detailed character description
     """
     # Class-specific traits
-    return ask_llama("Give me a quick paragraph with possible details of a " + char_class + " with an " + background + " who is a " + species_choice +  " with alignment " + alignment + ". Details include " + details, API_KEY)
+    return ask_llama("Give me a quick paragraph with possible details of a " + char_class + " with an " + background + " who is a " + species_choice +  " with alignment " + alignment + ". Details include " + details)
 
 @app.route('/generate', methods=['POST'])
 def generate_character():
