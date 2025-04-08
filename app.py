@@ -93,7 +93,7 @@ def generate_character():
         'alignment': alignment,
         'details': details,
         'description': description,
-        'image_url': character_image_url  # Add the image URL from env variable
+        'image_url': character_image_url 
     }
     
     return render_template('result.html', character=character)

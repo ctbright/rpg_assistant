@@ -7,29 +7,31 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1 class="page-title">RPG Character Helper</h1>
+    <div class="main-container">
+        <h1 class="site-title">RPG Character Helper</h1>
         
         <div class="result-container">
             <h2>Your Character</h2>
             <div class="character-card">
-                {% if character.image_url %}
-                <div class="character-image">
-                    <img src="{{ character.image_url }}" alt="{{ character.class }} {{ character.species }} character">
-                </div>
-                {% endif %}
-                <div class="character-info">
-                    <p><strong>System:</strong> {{ character.system }}</p>
-                    <p><strong>Class:</strong> {{ character.class }}</p>
-                    <p><strong>Background:</strong> {{ character.background }}</p>
-                    <p><strong>Species:</strong> {{ character.species }}</p>
-                    <p><strong>Alignment:</strong> {{ character.alignment }}</p>
-                    {% if character.details %}
-                    <p><strong>Additional Details:</strong> {{ character.details }}</p>
-                    {% endif %}
-                </div>
-                <div class="character-description">
-                    <p>{{ character.description }}</p>
+                <div class="character-profile">
+                    <div class="character-image">
+                        <img src="{{ character.image_url }}" alt="{{ character.class }} {{ character.species }} character">
+                    </div>
+                    <div class="character-details">
+                        <div class="character-info">
+                            <p><strong>System:</strong> {{ character.system }}</p>
+                            <p><strong>Class:</strong> {{ character.class }}</p>
+                            <p><strong>Background:</strong> {{ character.background }}</p>
+                            <p><strong>Species:</strong> {{ character.species }}</p>
+                            <p><strong>Alignment:</strong> {{ character.alignment }}</p>
+                            {% if character.details %}
+                            <p><strong>Additional Details:</strong> {{ character.details }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="character-description">
+                            <p>{{ character.description }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="actions">
