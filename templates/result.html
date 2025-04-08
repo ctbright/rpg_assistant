@@ -13,6 +13,11 @@
         <div class="result-container">
             <h2>Your Character</h2>
             <div class="character-card">
+                {% if character.image_url %}
+                <div class="character-image">
+                    <img src="{{ character.image_url }}" alt="{{ character.class }} {{ character.species }} character">
+                </div>
+                {% endif %}
                 <div class="character-info">
                     <p><strong>System:</strong> {{ character.system }}</p>
                     <p><strong>Class:</strong> {{ character.class }}</p>
