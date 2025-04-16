@@ -108,7 +108,7 @@ def generate_character():
     )
 
     #get name
-    character_name = get_name(details)
+    character_name = get_name()
 
     # Create character dictionary
     character = {
