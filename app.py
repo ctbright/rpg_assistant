@@ -55,7 +55,7 @@ def ask_image(prompt):
     try:
         response = client.images.generate(
             prompt=prompt,
-            model="stabilityai/stable-diffusion-xl-base-1.0",
+            model="black-forest-labs/FLUX.1-dev",
             steps=10,
             n=4
         )
