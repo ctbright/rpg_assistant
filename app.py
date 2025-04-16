@@ -85,6 +85,9 @@ def generate_character_image(paragraph, char_class, background, species_choice, 
     gender = ask_llama("what gender is the main person in the paragraph? Just return one word (woman/man/nonbinary person)")
     return ask_image("Give me a image of a D&D " + char_class + " with an " + background + " who is a " + species_choice +  " with alignment " + alignment + "who is a " + gender + ". Details could include " + details)
 
+def get_name():
+    return ask_llama("and what is there name? Just return the name, no other words")
+
 @app.route('/generate', methods=['POST'])
 def generate_character():
     # Get form data
@@ -103,16 +106,21 @@ def generate_character():
     character_image_url = generate_character_image(
         char_class, background, species_choice, alignment, details
     )
+
+    #get name
+    character_name = get_name(details)
+
     # Create character dictionary
     character = {
-        'system': "Generic Fantasy RPG",
+        'system': "D&D 5th Edition",
         'class': char_class,
         'background': background,
         'species': species_choice,
         'alignment': alignment,
         'details': details,
         'description': description,
-        'image_url': character_image_url 
+        'image_url': character_image_url,
+        'name': character_name
     }
     
     return render_template('result.html', character=character)
