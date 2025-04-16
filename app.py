@@ -86,7 +86,7 @@ def generate_character_image(paragraph, char_class, background, species_choice, 
     return ask_image("Give me a image of a D&D " + char_class + " with an " + background + " who is a " + species_choice +  " with alignment " + alignment + "who is a " + gender + ". Details could include " + details)
 
 def get_name():
-    return ask_llama("and what is there name? Just return the name, no other words")
+    return ask_llama("and what is the name of the person in the paragraph? Just return the name, no other words")
 
 @app.route('/generate', methods=['POST'])
 def generate_character():
