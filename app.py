@@ -82,7 +82,7 @@ def generate_character_description(char_class, background, species_choice, align
     return ask_llama("Give me a quick paragraph with possible details of a " + char_class + " with an " + background + " who is a " + species_choice +  " with alignment " + alignment + ". Details include " + details + "don't add anything else to the paragraph like 'here is a possible paragraph'. Do not tell a story about what is happening in the moment, but give details of backstory")
 
 def generate_character_image(paragraph, char_class, background, species_choice, alignment, details=""):
-    gender = ask_llama("what gender is the main person in this paragraph? Just return one word (woman/man/nonbinary person)" + paragraph)
+    gender = ask_llama("what gender is the main person in this paragraph? Just return the gender, no other text" + paragraph)
     return ask_image("Give me a image of a D&D " + char_class + " with an " + background + " who is a " + species_choice +  " with alignment " + alignment + "who is a " + gender + ". Details could include " + details)
 
 def get_name(paragraph):
