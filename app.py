@@ -40,7 +40,7 @@ def ask_llama(prompt):
     client = Together(api_key=api_key)
     try:
         response = client.chat.completions.create(
-            model="meta-llama/Meta-Llama-3-8B-Instruct-Turbo",
+            model="meta-llama/Llama-3.3-70B-Instruct-Turbo",
             messages=[
                 {"role": "user", "content": prompt}
             ],
